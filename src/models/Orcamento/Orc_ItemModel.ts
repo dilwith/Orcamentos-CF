@@ -45,4 +45,19 @@ export class OrcamentoItemModel {
     );
     return rows;
   }
+
+  static async findById(orcamentoItens_id: number): Promise<OrcamentoItem | null> {
+    const [rows] = await db.query<RowDataPacket[] & OrcamentoItem[]>(
+      'SELECT * FROM orcamentoItens WHERE orcamentoItens_id = ?',
+      [orcamentoItens_id]
+    );
+    return rows.length > 0 ? rows[0] : null;
+  }
+
+  static async update(orcamentoItens_id: number, data: Partial<OrcamentoItem>): Promise<void> {
+    await db.query(
+      'UPDATE orcamentoItens SET quantidade = ?, marca = ?, valor_unitario = ? WHERE orcamentoItens_id = ?',
+      [data.quantidade, data.marca, data.valor_unitario, orcamentoItens_id]
+    );
+  }
 }

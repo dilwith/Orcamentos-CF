@@ -56,4 +56,10 @@ export class OrcamentoFornecedorModel {
     );
     return rows;
   }
+  static async update(orcamentoFornecedores_id: number, data: Partial<OrcamentoFornecedor>): Promise<void> {
+    await db.query(
+      'UPDATE orcamentoFornecedores SET fornecedor_id = ?, data_envio = ? WHERE orcamentoFornecedores_id = ?',
+      [data.fornecedor_id, data.data_envio, orcamentoFornecedores_id]
+    );
+  }
 } 

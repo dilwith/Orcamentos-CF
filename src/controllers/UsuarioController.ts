@@ -8,7 +8,14 @@ export class UsuarioController {
   static async listar(req: Request, res: Response): Promise<void> {
     try {
       const usuarios = await UsuarioService.listarUsuarios();
-      res.json(usuarios);
+  
+      // Remove o campo 'senha' de cada usuário
+      const usuariosSemSenha = usuarios.map(usuario => {
+        const { senha, ...usuarioSemSenha } = usuario;
+        return usuarioSemSenha;
+      });
+  
+      res.json(usuariosSemSenha);
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Erro desconhecido' });
     }

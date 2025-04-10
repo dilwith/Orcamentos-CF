@@ -23,11 +23,15 @@ export class OrcamentoFornecedorService {
     await OrcamentoFornecedorModel.delete(orcamentoFornecedores_id);
   }
 
-
-
-
   static async listarComNomeFornecedor(): Promise<OrcamentoFornecedorDetalhado[]> {
     return OrcamentoFornecedorModel.listarComNomeFornecedor();
   }
+  static async atualizarOrcamentoFornecedor(orcamentoFornecedores_id: number, data: Partial<OrcamentoFornecedor>): Promise<void> {
+    const fornecedor = await OrcamentoFornecedorModel.findById(orcamentoFornecedores_id);
+    if (!fornecedor) {
+      throw new Error('OrçamentoFornecedor não encontrado');
+    }
 
+    await OrcamentoFornecedorModel.update(orcamentoFornecedores_id, data);
+  }
 }

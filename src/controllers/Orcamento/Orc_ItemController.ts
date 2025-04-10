@@ -38,4 +38,14 @@ export class OrcamentoItemController {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Erro desconhecido' });
     }
   }
+
+  static async atualizar(req: Request, res: Response): Promise<void> {
+    try {
+      const orcamentoItens_id = Number(req.params.id);
+      await OrcamentoItemService.atualizarOrcamentoItem(orcamentoItens_id, req.body);
+      res.json({ message: 'OrçamentoItem atualizado com sucesso' });
+    } catch (error) {
+      res.status(400).json({ error: error instanceof Error ? error.message : 'Erro desconhecido' });
+    }
+  }
 }

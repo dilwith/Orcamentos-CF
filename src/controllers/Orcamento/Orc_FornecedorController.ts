@@ -38,4 +38,14 @@ export class OrcamentoFornecedorController {
       res.status(500).json({ error: error instanceof Error ? error.message : 'Erro desconhecido' });
     }
   }
+
+  static async atualizar(req: Request, res: Response): Promise<void> {
+    try {
+      const orcamentoFornecedores_id = Number(req.params.id);
+      await OrcamentoFornecedorService.atualizarOrcamentoFornecedor(orcamentoFornecedores_id, req.body);
+      res.json({ message: 'OrçamentoFornecedor atualizado com sucesso' });
+    } catch (error) {
+      res.status(400).json({ error: error instanceof Error ? error.message : 'Erro desconhecido' });
+    }
+  }
 }
